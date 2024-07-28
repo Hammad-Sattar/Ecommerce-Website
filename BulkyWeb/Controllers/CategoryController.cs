@@ -20,5 +20,23 @@ namespace BulkyWeb.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Create( Category obj)
+        {
+            if (obj.Name == obj.Displayorder.ToString()) {
+
+                ModelState.AddModelError("Name", "Value of Name And Display Order should not be same");
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+            
+        }
     }
 }
