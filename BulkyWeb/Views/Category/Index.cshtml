@@ -1,46 +1,62 @@
 ﻿@model List<Category>
+<style>
+
+
+    .hover-effect {
+        transition: background-color 0.3s ease;
+    }
+
+        .hover-effect:hover {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+        }
+</style>
+
 <div class="container">
     <div class="row pt-4 pb-3">
         <div class="col-6">
-            <h2 class="text-primary">
+            <h2 class="text-primary fw-bold">
                 Category List
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary float-end rounded-pill hover-effect">
                 <i class="bi bi-plus-circle"></i> Create new Category
             </a>
         </div>
     </div>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Category Name</th>
-                <th >Display Order</th>
-                <th class="text-center">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model.OrderBy(u => u.Displayorder))
-            {
-                <tr>
-                    <td>
-                        @obj.Name
-                    </td>
-                    <td>
-                        @obj.Displayorder
-                    </td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                          
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2"> <i class="bi bi-pencil-fill"></i>  Edit</a>
-                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2 text"> <i class="bi bi-trash"></i>  Delete</a>
-                        </div>
-                    </td>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="col-4">Category Name</th>
+                        <th class="col-2">Display Order</th>
+                        <th class="col-6 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.OrderBy(u => u.Displayorder))
+                    {
+                        <tr>
+                            <td>
+                                @obj.Name
+                            </td>
+                            <td>
+                                @obj.Displayorder
+                            </td>
+                            <td>
+                                <div class="w-75 btn-group float-end" role="group">
+                                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-sm btn-primary mx-2 rounded-pill hover-effect"> <i class="bi bi-pencil-fill"></i>  Edit</a>
+                                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-danger mx-2 rounded-pill hover-effect text"> <i class="bi bi-trash"></i>  Delete</a>
+                                </div>
+                            </td>
 
-                </tr>
-            }
-        </tbody>
-    </table>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

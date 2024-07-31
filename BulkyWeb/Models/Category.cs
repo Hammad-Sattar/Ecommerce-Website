@@ -11,7 +11,7 @@ namespace BulkyWeb.Models
         [Required]
         [DisplayName("Category Name")]
         [MaxLength(30)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [DisplayName("Display Order")]
         [Required(ErrorMessage ="Display order should be between 1-100")]
         [Range(1,100)]

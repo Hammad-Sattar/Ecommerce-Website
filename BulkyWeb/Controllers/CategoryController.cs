@@ -26,16 +26,18 @@ namespace BulkyWeb.Controllers
             if (obj.Name == obj.Displayorder.ToString()) {
 
                 ModelState.AddModelError("Name", "Value of Name And Display Order should not be same");
+                return View();
             }
 
-            if (ModelState.IsValid)
-            {
+
 
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Succesfully";
                 return RedirectToAction("Index");
-            }
-            return View();
+            
+          
+           
             
         }
         [HttpGet]
@@ -68,6 +70,7 @@ namespace BulkyWeb.Controllers
 
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category Updated Succesfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -105,6 +108,7 @@ namespace BulkyWeb.Controllers
             
                 _db.Categories.Remove(obj);
                 _db.SaveChanges();
+            TempData["success"] = "Category Deleted Succesfully";
 
             return RedirectToAction("index");
         }
