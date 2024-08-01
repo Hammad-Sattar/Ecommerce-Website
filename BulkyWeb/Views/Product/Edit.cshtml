@@ -1,0 +1,79 @@
+﻿@using Bulky.Models.Models
+@model Product
+<style>
+    .hover-effect {
+        transition: background-color 0.3s ease;
+    }
+
+        .hover-effect:hover {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+        }
+</style>
+
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="p-3 m-4 bg-white rounded shadow-sm">
+        <div class="row pb-2">
+            <h2 class="text-primary fw-bold">Create Product</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3 row p-0">
+            <label asp-for="Title" class="p-0 fw-bold"></label>
+            <input asp-for="Title" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Title" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="ISBN" class="p-0 fw-bold"></label>
+            <input asp-for="ISBN" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="ISBN" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="Author" class="p-0 fw-bold"></label>
+            <input asp-for="Author" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Author" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="ListPrice" class="p-0 fw-bold"></label>
+            <input asp-for="ListPrice" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="ListPrice" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="Price" class="p-0 fw-bold"></label>
+            <input asp-for="Price" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Price" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="Price50" class="p-0 fw-bold"></label>
+            <input asp-for="Price50" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Price50" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="Price100" class="p-0 fw-bold"></label>
+            <input asp-for="Price100" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Price100" class=" text-danger"></Span>
+        </div>
+        <div class="mb-3 row  row p-0">
+            <label asp-for="Description" class="p-0 fw-bold"></label>
+            <input asp-for="Description" type="text" class="form-control rounded-pill" />
+            <Span asp-validation-for="Description" class=" text-danger"></Span>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary form-control rounded-pill hover-effect">Update</button>
+            </div>
+            <div class="col-6">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
+                    Back To List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

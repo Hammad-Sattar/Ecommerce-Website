@@ -1,0 +1,91 @@
+﻿@using Bulky.Models.Models
+@model List<Product>
+
+<style>
+    .hover-effect {
+        transition: background-color 0.3s ease;
+    }
+
+        .hover-effect:hover {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+        }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary fw-bold">Product List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-primary float-end rounded-pill hover-effect">
+                <i class="bi bi-plus-circle"></i> Create new Product
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="col-2">Title</th>
+                      
+                        <th class="col-1">ISBN</th>
+                        <th class="col-1">Author</th>
+                        <th class="col-1">List Price</th>
+                        <th class="col-1">Price</th>
+                        <th class="col-1">Price50</th>
+                        <th class="col-1">Price100</th>
+                        <th class="col-2">Description</th>
+                        <th class="col-2 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.OrderBy(u => u.Price))
+                    {
+                        <tr>
+                            <td>
+                                @obj.Title
+                            </td>
+                           
+                            <td>
+                                @obj.ISBN
+                            </td>
+                            <td>
+                                @obj.Author
+                            </td>
+                            <td>
+                                @obj.ListPrice
+                            </td>
+                            <td>
+                                @obj.Price
+                            </td>
+                            <td>
+                                @obj.Price50
+                            </td>
+                            <td>
+                                @obj.Price100
+                            </td>
+                            <td>
+                                @obj.Description
+                            </td>
+
+                            <td>
+                                <div class="w-100 btn-group float-end" role="group">
+                                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-sm btn-primary mx-2 rounded-pill hover-effect"> <i class="bi bi-pencil-fill"></i> Edit</a>
+                                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-danger mx-2 rounded-pill hover-effect text"> <i class="bi bi-trash"></i> Delete</a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
