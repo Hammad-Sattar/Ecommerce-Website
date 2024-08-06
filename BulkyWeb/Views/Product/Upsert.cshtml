@@ -1,0 +1,111 @@
+﻿@model ProductVM
+
+<style>
+    .hover-effect {
+        transition: background-color 0.3s ease;
+    }
+
+        .hover-effect:hover {
+            background-color: #007bff !important;
+            color: #ffffff !important;
+        }
+</style>
+
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="p-3 m-4 bg-white rounded shadow-sm">
+                <div class="row pb-2">
+                    <h2 class="text-primary fw-bold">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+                    <hr />
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3 row p-0">
+                    <label asp-for="Product.Title" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.Title" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.Title" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.ISBN" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.ISBN" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.ISBN" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.Author" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.Author" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.Author" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.ListPrice" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.ListPrice" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.ListPrice" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.Price" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.Price" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.Price" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.Price50" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.Price50" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.Price50" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.Price100" class="p-0 fw-bold"></label>
+                    <input asp-for="Product.Price100" type="text" class="form-control rounded-pill" />
+                    <Span asp-validation-for="Product.Price100" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.Description" class="p-0 fw-bold"></label>
+                    <textarea asp-for="Product.Description" class="form-control rounded-pill"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <Label asp-for="Product.CategoryId" class="form-control rounded-pill"></Label>
+                    <select asp-for="Product.CategoryId" asp-items="@Model.Categorylist" class="p-0 fw-bold">
+                        <option disabled selected>Select category </option>
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Product.ImageUrl" class="p-0 fw-bold"></label>
+                    <input type="file" name="file" class="form-control rounded-pill" />
+                    @*<Span asp-validation-for="Product.ImageUrl" class=" text-danger"></Span>*@
+                </div>
+                <div class="row">
+
+                    <div class="col-6">
+                        @if (Model.Product.Id == 0 || Model.Product.Id == null)
+                        {
+                            <button type="submit" class="btn btn-primary form-control rounded-pill hover-effect">Create</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary form-control rounded-pill hover-effect">Update</button>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
+                            Back To List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <img src="@Model.Product.ImageUrl" width="100%" hieght="100%"
+            style="border-radius:5px;border:1px solid white"/>
+        </div>
+
+    </div>
+  
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

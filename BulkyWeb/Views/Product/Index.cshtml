@@ -22,7 +22,7 @@
             <h2 class="text-primary fw-bold">Product List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary float-end rounded-pill hover-effect">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary float-end rounded-pill hover-effect">
                 <i class="bi bi-plus-circle"></i> Create new Product
             </a>
         </div>
@@ -34,25 +34,20 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="col-2">Title</th>
-                      
                         <th class="col-1">ISBN</th>
                         <th class="col-1">Author</th>
-                        <th class="col-1">List Price</th>
                         <th class="col-1">Price</th>
-                        <th class="col-1">Price50</th>
-                        <th class="col-1">Price100</th>
-                        <th class="col-2">Description</th>
+                        <th class="col-1">Category</th>
                         <th class="col-2 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var obj in Model.OrderBy(u => u.Price))
+                    @foreach (var obj in Model)
                     {
                         <tr>
                             <td>
                                 @obj.Title
-                            </td>
-                           
+                            </td> 
                             <td>
                                 @obj.ISBN
                             </td>
@@ -60,24 +55,15 @@
                                 @obj.Author
                             </td>
                             <td>
-                                @obj.ListPrice
-                            </td>
-                            <td>
                                 @obj.Price
                             </td>
                             <td>
-                                @obj.Price50
+                               
+                               @obj.Category.Name
                             </td>
-                            <td>
-                                @obj.Price100
-                            </td>
-                            <td>
-                                @obj.Description
-                            </td>
-
                             <td>
                                 <div class="w-100 btn-group float-end" role="group">
-                                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-sm btn-primary mx-2 rounded-pill hover-effect"> <i class="bi bi-pencil-fill"></i> Edit</a>
+                                    <a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-sm btn-primary mx-2 rounded-pill hover-effect"> <i class="bi bi-pencil-fill"></i> Edit</a>
                                     <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-danger mx-2 rounded-pill hover-effect text"> <i class="bi bi-trash"></i> Delete</a>
                                 </div>
                             </td>

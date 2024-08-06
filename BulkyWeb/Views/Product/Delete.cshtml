@@ -13,67 +13,81 @@
 
 <form method="post">
     <input asp-for="Id" hidden />
-    <div class="p-3 m-4 bg-white rounded shadow-sm">
-        <div class="row pb-2">
-            <h2 class="text-primary fw-bold">Create Product</h2>
-            <hr />
-        </div>
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="mb-3 row p-0">
-            <label asp-for="Title" class="p-0 fw-bold"></label>
-            <input asp-for="Title" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Title" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="ISBN" class="p-0 fw-bold"></label>
-            <input asp-for="ISBN" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="ISBN" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="Author" class="p-0 fw-bold"></label>
-            <input asp-for="Author" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Author" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="ListPrice" class="p-0 fw-bold"></label>
-            <input asp-for="ListPrice" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="ListPrice" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="Price" class="p-0 fw-bold"></label>
-            <input asp-for="Price" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Price" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="Price50" class="p-0 fw-bold"></label>
-            <input asp-for="Price50" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Price50" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="Price100" class="p-0 fw-bold"></label>
-            <input asp-for="Price100" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Price100" class=" text-danger"></Span>
-        </div>
-        <div class="mb-3 row  row p-0">
-            <label asp-for="Description" class="p-0 fw-bold"></label>
-            <input asp-for="Description" type="text" disabled class="form-control rounded-pill" />
-            <Span asp-validation-for="Description" class=" text-danger"></Span>
-        </div>
-        <div class="row">
-            <div class="row">
-                <div class="col-6">
-                    <button type="submit" class="btn btn-danger form-control rounded-pill hover-effect">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
+    <div class="row">
+        <div class="col-10">
+            <div class="p-3 m-4 bg-white rounded shadow-sm">
+                <div class="row pb-2">
+                    <h2 class="text-primary fw-bold">Create Product</h2>
+                    <hr />
                 </div>
-                <div class="col-6">
-                    <a asp-controller="Category" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
-                        <i class="bi bi-arrow-left"></i> Back To List
-                    </a>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3 row p-0">
+                    <label asp-for="Title" class="p-0 fw-bold"></label>
+                    <input asp-for="Title" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Title" class=" text-danger"></Span>
                 </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="ISBN" class="p-0 fw-bold"></label>
+                    <input asp-for="ISBN" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="ISBN" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Author" class="p-0 fw-bold"></label>
+                    <input asp-for="Author" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Author" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="ListPrice" class="p-0 fw-bold"></label>
+                    <input asp-for="ListPrice" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="ListPrice" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Price" class="p-0 fw-bold"></label>
+                    <input asp-for="Price" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Price" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Price50" class="p-0 fw-bold"></label>
+                    <input asp-for="Price50" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Price50" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Price100" class="p-0 fw-bold"></label>
+                    <input asp-for="Price100" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Price100" class=" text-danger"></Span>
+                </div>
+                <div class="mb-3 row  row p-0">
+                    <label asp-for="Description" class="p-0 fw-bold"></label>
+                    <input asp-for="Description" type="text" disabled class="form-control rounded-pill" />
+                    <Span asp-validation-for="Description" class=" text-danger"></Span>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger form-control rounded-pill hover-effect">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-controller="Category" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
+                                <i class="bi bi-arrow-left"></i> Back To List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
         </div>
+        </div>
+         <div class="col-2">
+                <img src="@Model.ImageUrl" width="100%" hieght="100%"
+                     style="border-radius:5px;border:1px solid white" />
+
+        </div>
+
     </div>
-</form>
+
+   </form>
 
 @section Scripts {
     @{
