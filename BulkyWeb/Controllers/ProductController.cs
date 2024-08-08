@@ -1,7 +1,9 @@
 ﻿using Bulky.DataAcess.Repository.IRepository;
 using Bulky.Models.Models;
 using Bulky.Models.ViewModels;
+using Bulky.Utility;
 using BulkyWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 
 namespace BulkyWeb.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitofwork;

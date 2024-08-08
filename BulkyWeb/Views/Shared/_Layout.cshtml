@@ -27,22 +27,24 @@
                     <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @* DropDwon Start from Here *@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Content Managment
-                            </a>
-                            <ul class="dropdown-menu">
-                        </li>
-                        <a class="nav-link text-dark "  asp-controller="Category" asp-action="Index">Category</a>
-                        </li>
-                        </li>
-                        <a class="nav-link text-dark "  asp-controller="Product" asp-action="Index">Product</a>
-                        </li>
-                             
-                            </ul>
-                   
-                        </li>
+
+
+                            @* DropDown Start from Here *@
+                            @if (User.IsInRole(SD.Role_Admin))
+                                {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Content Management
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Category" asp-action="Index">Category</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Product" asp-action="Index">Product</a></li>
+                                </ul>
+                            </li>
+                                }
+
+                                
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
