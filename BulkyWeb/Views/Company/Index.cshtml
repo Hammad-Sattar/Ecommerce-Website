@@ -1,0 +1,69 @@
+﻿@using Bulky.Models.Models
+@model List<Company>
+
+
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary fw-bold">Company List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Company" asp-action="Upsert" class="btn btn-primary float-end rounded-pill hover-effect">
+                <i class="bi bi-plus-circle"></i> Create new Company
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="col-2">Name</th>
+                        <th class="col-1">StreetAddress</th>
+                        <th class="col-1">City</th>
+                        <th class="col-1">State</th>
+                        <th class="col-1">PostalCode</th>
+                        <th class="col-1">PhoneNumber</th>
+                        <th class="col-2 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td>
+                                @obj.Name
+                            </td> 
+                            <td>
+                                @obj.StreetAddress
+                            </td>
+                            <td>
+                                @obj.City
+                            </td>
+                            <td>
+                                @obj.State
+                            </td>
+                            <td>
+                               
+                               @obj.PostalCode
+                            </td>
+                            <td>
+
+                                @obj.PhoneNumber
+                            </td>
+                            <td>
+                                <div class="w-100 btn-group float-end" role="group">
+                                    <a asp-controller="Company" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-sm btn-primary mx-2 rounded-pill hover-effect"> <i class="bi bi-pencil-fill"></i> Edit</a>
+                                    <a asp-controller="Company" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-sm btn-danger mx-2 rounded-pill hover-effect text"> <i class="bi bi-trash"></i> Delete</a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,7 @@ namespace BulkyWeb.Controllers
         public IActionResult Index()
         {
             List<Category> CategoryList = _unitofwork.Category.GetAll().ToList();
+            
             return View(CategoryList);
         }
         public IActionResult Create()

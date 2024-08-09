@@ -4,6 +4,7 @@ using BulkyWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240809121325_AddForeignKeyToApplicationUser")]
+    partial class AddForeignKeyToApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -562,7 +565,7 @@ namespace BulkyWeb.Migrations
 
             modelBuilder.Entity("Bulky.Models.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("Bulky.Models.Models.Company", "Company")
+                    b.HasOne("BulkyWeb.Models.Category", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
