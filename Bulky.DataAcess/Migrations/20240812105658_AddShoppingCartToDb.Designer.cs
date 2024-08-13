@@ -4,6 +4,7 @@ using BulkyWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812105658_AddShoppingCartToDb")]
+    partial class AddShoppingCartToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,7 +225,7 @@ namespace BulkyWeb.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Bulky.Models.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Bulky.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -237,6 +240,9 @@ namespace BulkyWeb.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -244,7 +250,7 @@ namespace BulkyWeb.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductID");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -536,7 +542,7 @@ namespace BulkyWeb.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Bulky.Models.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Bulky.Models.ShoppingCart", b =>
                 {
                     b.HasOne("Bulky.Models.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -546,7 +552,7 @@ namespace BulkyWeb.Migrations
 
                     b.HasOne("Bulky.Models.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

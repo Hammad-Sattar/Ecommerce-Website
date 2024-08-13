@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Bulky.DataAcess.Repository
 {
-    public class CompnyRepository : Repository<Company>, ICompanyRepository
-    {
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+        {
         private ApplicationDbContext _db;
-        public CompnyRepository(ApplicationDbContext db) : base(db)
+        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -22,9 +22,6 @@ namespace Bulky.DataAcess.Repository
      
 
         
-        public void Update(Category obj)
-        {
-            _db.Update(obj);
-        }
+       
     }
 }

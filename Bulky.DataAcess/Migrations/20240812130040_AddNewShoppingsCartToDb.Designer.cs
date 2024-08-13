@@ -4,6 +4,7 @@ using BulkyWeb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240812130040_AddNewShoppingsCartToDb")]
+    partial class AddNewShoppingsCartToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +249,7 @@ namespace BulkyWeb.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ShoppingCarts");
+                    b.ToTable("ShoppingCart");
                 });
 
             modelBuilder.Entity("BulkyWeb.Models.Category", b =>

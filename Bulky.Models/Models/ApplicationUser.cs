@@ -24,6 +24,8 @@ namespace Bulky.Models.Models
         [ValidateNever]
         public Company Company { get; set; }
 
+      
 
-        }
+
+    }
     }
