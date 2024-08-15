@@ -5,25 +5,26 @@ using BulkyWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bulky.DataAcess.Repository
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
-    {
+    public class OrderDetailRepository : Repository<OrderDetail>, IOrderDetailRepository
+        {
         private ApplicationDbContext _db;
-        public ProductRepository(ApplicationDbContext db) : base(db)
+        public OrderDetailRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
+     
 
-
-
-        public void Update(Product obj)
+        
+        public void Update(OrderDetail obj)
         {
-            _db.Products.Update(obj);
+            _db.OrderDetails.Update(obj);
         }
     }
 }

@@ -2,13 +2,13 @@
 @model Product
 
 
-<form method="post">
+<form method="post" class="pt-5 mb-3">
     <input asp-for="Id" hidden />
     <div class="row">
         <div class="col-10">
             <div class="p-3 m-4 bg-white rounded shadow-sm">
                 <div class="row pb-2">
-                    <h2 class="text-primary fw-bold">Create Product</h2>
+                    <h2 class="text-primary fw-bold">Delete Product</h2>
                     <hr />
                 </div>
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -60,7 +60,7 @@
                             </button>
                         </div>
                         <div class="col-6">
-                            <a asp-controller="Category" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
+                            <a asp-controller="Product" asp-action="Index" class="btn btn-secondary border form-control rounded-pill hover-effect">
                                 <i class="bi bi-arrow-left"></i> Back To List
                             </a>
                         </div>
