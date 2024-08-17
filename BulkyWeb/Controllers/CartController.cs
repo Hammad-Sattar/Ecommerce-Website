@@ -9,54 +9,61 @@ using System.Security.Claims;
 
 namespace BulkyWeb.Controllers
     {
+    
     [Authorize]
     public class CartController : Controller
         {
+
         private readonly IUnitOfWork _unitOfWork;
+      //  private readonly IEmailSender _emailSender;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
         public CartController(IUnitOfWork unitOfWork)
             {
             _unitOfWork = unitOfWork;
-
+         //   _emailSender = emailSender;
             }
+
 
         public IActionResult Index()
             {
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             ShoppingCartVM = new()
                 {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
                 includeproperties: "Product"),
                 OrderHeader = new()
-
                 };
+
+           // IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
 
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
                 {
-
+               // cart.Product.ProductImages = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
                 }
 
             return View(ShoppingCartVM);
             }
+
         public IActionResult Summary()
             {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             ShoppingCartVM = new()
                 {
                 ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
                 includeproperties: "Product"),
                 OrderHeader = new()
-
                 };
-            //getting user from db on the basis of login uder id
+
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
 
-            //manaully assigning the orderheadder property 
             ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
             ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
             ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
@@ -64,15 +71,16 @@ namespace BulkyWeb.Controllers
             ShoppingCartVM.OrderHeader.State = ShoppingCartVM.OrderHeader.ApplicationUser.State;
             ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
 
+
+
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
                 {
-
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
                 }
-
             return View(ShoppingCartVM);
             }
+
         [HttpPost]
         [ActionName("Summary")]
         public IActionResult SummaryPOST()
@@ -87,6 +95,7 @@ namespace BulkyWeb.Controllers
             ShoppingCartVM.OrderHeader.ApplicationUserId = userId;
 
             ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+            ShoppingCartVM.OrderHeader.ApplicationUser= applicationUser;
 
 
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
@@ -129,8 +138,8 @@ namespace BulkyWeb.Controllers
                 var domain = Request.Scheme + "://" + Request.Host.Value + "/";
                 var options = new SessionCreateOptions
                     {
-                    SuccessUrl = domain + $"cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
-                    CancelUrl = domain + "cart/index",
+                    SuccessUrl = domain + $"Cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                    CancelUrl = domain + "Cart/index",
                     LineItems = new List<SessionLineItemOptions>(),
                     Mode = "payment",
                     };
@@ -167,11 +176,10 @@ namespace BulkyWeb.Controllers
             }
 
 
-
-
         public IActionResult OrderConfirmation(int id)
             {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id,includeproperties: "ApplicationUser");
+
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeproperties: "ApplicationUser");
             if (orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)
                 {
                 //this is an order by customer
@@ -185,9 +193,13 @@ namespace BulkyWeb.Controllers
                     _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                     _unitOfWork.Save();
                     }
-
+               // HttpContext.Session.Clear();
 
                 }
+
+          //  _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Bulky Book",
+            //    $"<p>New Order Created - {orderHeader.Id}</p>");
+
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart
                 .GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 
@@ -197,72 +209,68 @@ namespace BulkyWeb.Controllers
             return View(id);
             }
 
-        public IActionResult Plus(int cartid)
-            {
 
-            var cartfromdb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartid);
-            cartfromdb.Count += 1;
-            _unitOfWork.ShoppingCart.Update(cartfromdb);
+        public IActionResult Plus(int cartId)
+            {
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            cartFromDb.Count += 1;
+            _unitOfWork.ShoppingCart.Update(cartFromDb);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
-
             }
 
-        public IActionResult Minus(int cartid)
+        public IActionResult Minus(int cartId)
             {
-
-            var cartfromdb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartid);
-            if (cartfromdb.Count <= 1)
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            if (cartFromDb.Count <= 1)
                 {
+                //remove that from cart
 
-                //remove from cart
-                _unitOfWork.ShoppingCart.Remove(cartfromdb);
+                _unitOfWork.ShoppingCart.Remove(cartFromDb);
+               // HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+                  //  .GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
                 }
             else
                 {
-                cartfromdb.Count -= 1;
-                _unitOfWork.ShoppingCart.Update(cartfromdb);
-
+                cartFromDb.Count -= 1;
+                _unitOfWork.ShoppingCart.Update(cartFromDb);
                 }
 
-
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
-
             }
 
-        public IActionResult Remove(int cartid)
+        public IActionResult Remove(int cartId)
             {
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
 
-            var cartfromdb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartid);
+            _unitOfWork.ShoppingCart.Remove(cartFromDb);
 
-            _unitOfWork.ShoppingCart.Remove(cartfromdb);
+           // HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+             // .GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
-
             }
+
+
+
         private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
             {
-            if (shoppingCart.Count >= 50)
+            if (shoppingCart.Count <= 50)
                 {
-
                 return shoppingCart.Product.Price;
-
                 }
             else
                 {
-                if (shoppingCart.Product.Price <= 100)
+                if (shoppingCart.Count <= 100)
                     {
                     return shoppingCart.Product.Price50;
                     }
                 else
                     {
-
                     return shoppingCart.Product.Price100;
-
                     }
                 }
-
             }
         }
     }
