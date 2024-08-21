@@ -115,9 +115,19 @@
 
                         </p>
                     </div>
-                    <div class="col-12 col-md-4">
-                        <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
-                    </div>
+                    @if (Model.OrderHeader.OrderTotal > 0)
+                        {
+                        <div class="col-12 col-md-4">
+                            <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+                        </div>
+                        }
+                    else
+                        {
+                        <div class="col-12 col-md-4">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-danger form-control">Select Item For Placing Order</a>
+                        </div>
+                        }
+
                 </div>
             </div>
         </div>
