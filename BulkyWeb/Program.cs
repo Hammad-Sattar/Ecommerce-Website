@@ -24,12 +24,23 @@ namespace BulkyWeb
 
             builder.Services.AddRazorPages();
             builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            //stripe setting
             builder.Services.ConfigureApplicationCookie(option => {
                 option.LoginPath = $"/Identity/Account/Login";
                 option.LogoutPath = $"/Identity/Account/Logout";
                 option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
               });
+            //facebook authentication 
+            builder.Services.AddAuthentication().AddFacebook(option =>
+            {
+                option.AppId = "960129932794608";
+                option.AppSecret = "fe74288af575c58f01df83358e31a38e";
+               
 
+            });
+
+            // Session Setting
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(100);

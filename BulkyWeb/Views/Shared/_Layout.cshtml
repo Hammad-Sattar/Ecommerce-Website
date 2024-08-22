@@ -52,7 +52,13 @@
                                     <li><a class="dropdown-item" asp-controller="Category" asp-action="Index">Category</a></li>
                                     <li><a class="dropdown-item" asp-controller="Product" asp-action="Index">Product</a></li>
                                     <li><a class="dropdown-item" asp-controller="Company" asp-action="Index">Company</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register User</a>
+                                    </li>
                                 </ul>
+
+                           
                             </li>
                             }
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionCart) != null)
