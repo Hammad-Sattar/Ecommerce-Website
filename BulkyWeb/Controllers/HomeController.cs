@@ -55,39 +55,37 @@ namespace BulkyWeb.Controllers
             }
         [HttpPost]
         [Authorize]
-        public IActionResult Details(ShoppingCart shoppingcart)
+        public IActionResult Details(ShoppingCart shoppingCart)
             {
+            shoppingCart.Id = 0;
             var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
 
-            if (userId == null)
-                {
-                return RedirectToAction("Login", "Account");
-                }
-
-            shoppingcart.ApplicationUserId = userId;
-            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == shoppingcart.ProductId);
+            ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId &&
+            u.ProductId == shoppingCart.ProductId);
 
             if (cartFromDb != null)
                 {
-                // Update the Cart 
-                cartFromDb.Count += shoppingcart.Count;
+                //shopping cart exists
+                cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
                 }
             else
                 {
-                shoppingcart.Id = 0;
-                _unitOfWork.ShoppingCart.Add(shoppingcart);
-                }
-
-            _unitOfWork.Save();
-
-            // Update session cart count
-            HttpContext.Session.SetInt32(SD.SessionCart,
+                //add cart record
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
                 _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
+                }
+            TempData["success"] = "Cart updated successfully";
 
-            TempData["Success"] = "Item Added To Cart";
-            return RedirectToAction("Index", "Home");
+
+
+
+            return RedirectToAction(nameof(Index));
             }
 
 
